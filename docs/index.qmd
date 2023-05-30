@@ -1,0 +1,67 @@
+
+---
+title: "Predicting Crime with Green Space Data: Insights from the Tree Equity Dataset"
+author:
+  - name: Victor De Lima
+    affiliations:
+      - name: Georgetown University
+date: 2023-03-03
+format:
+    html:
+      theme: journal
+      toc: true
+      embed-resources: true
+      code-copy: true
+      code-line-numbers: true
+      number-sections: true
+      highlight-style: github
+
+bibliography: references.bib
+
+---
+
+::: {.callout-note appearance="simple"}
+All code used in this report is publicly available on [GitHub](https://github.com/vdelimad/predicting-crime-with-green-space-data).
+::: 
+
+
+# Introduction
+
+Can the Tree Equity Score (TES), a measure of a city's tree canopy cover,  predict the number of Driving Under the Influence (DUI) offenses of a census block? Although green space data and crime are widely studied subjects, the relationship between these factors can be deeper than initially expected. In this paper, we use the Crime Open Database (CODE) to analyze the relationship between the number of DUIs and the variables available in the TES dataset set for more than 7,500 census blocks in 18 US cities (data sources from Green Space Challenge [@green_space_challenge_crime_2023] [@green_space_challenge_tree_2023]). Results show a statistically significant negative relationship between these two factors and that how well a city delivers equitable tree canopy cover to its residents can be symptomatic of other socioeconomic dimensions.
+
+![Heatmap of the Tree Equity Score for the census blocks in the City of New York generated using @city_of_new_york_2020_2022 and @green_space_challenge_tree_2023](../images/ny_tree_equity_score.png){height="300px" #fig-heatmap}
+
+
+# Related Work
+
+Evidence of the positive impact of green space on communities is extensive. For example, @rigolon_green_2021 discuss the strong association of green space with health outcomes and how a lack of it affects particularly disadvantaged groups. Similarly, @bogar_green_2016 examine the relationship between green space, violence, and crime in the US, finding evidence that green space can be conducive to health-promoting environments. Although the literature on the impact of green space in society is vast, this paper focuses mainly on the DUI offense type, which is not well-researched and hopes to uncover additional green space vectors of influence.
+
+# Methodology and Experiments
+
+## The Data
+
+The data combines the CODE and TES datasets. First, we filtered the CODE dataset for where the column `offense_group` is 'driving under the influence'. We only included the years from 2016 to 2018 since these were the only years all cities had complete data. Then, we constructed a dataframe of the aggregated DUI offense count in each census block. Next, since the TES dataset has one table per state, we built our TES dataset by combining the tables of the 13 states where the 18 cities available in the CODE dataset are located. Using the census block ID, we then appended these tables via a left join to the TES dataset. Finally, we cleaned and processed as needed, as detailed in the accompanying Redivis document. @fig-correlation shows the correlation between the variables in the clean dataset constructed.
+
+![Correlation plot of the variables in the prepared dataset, not including dummy variables.](../images/heatmap.png){#fig-correlation}
+
+
+## Experiments and Results
+
+We conducted six experiments to assess how different model specifications performed, as measured by the Root Mean Square Error (RMSE). The first experiment consists of an Ordinary Least Squares (OLS) regression with the 17 independent variables of the clean dataset, using the number of DUIs as the dependent variable. Since this initial model, we found the Tree Equity Score to be statistically significant and negatively related to the dependent variable. The second experiment consists of Lasso ($\ell 1$) regression on the same variables. For the third experiment, we added second- and third-degree polynomials and interaction terms for every variable, resulting in 1,139 features. We used Forwards Stepwise Selection, AIC, Mallow's CP, and Adjusted $R^2$ to find the optimal number of features. This was the best-performing model in terms of RMSE and had 927 dependent variables. For the fourth and fifth experiments, we removed insignificant variables from the previous model and ran both OLS and Lasso. The statistical output shows that the Tree Equity Score remained a relevant variable throughout all these models. Finally, we fit a Support Vector Machine on the original 17 independent variables dataset.  
+
+The following are the Cross-Validation RMSE values for each of the conducted experiments:
+
+| Experiment | Cross-Validation RMSE |
+|-------------------------------------------------------|:------:|
+| Analytical Dataframe - Linear Regression| 33.04 |
+| Analytical Dataframe - Lasso Regression | 32.70 |
+| FSS Dataframe - Linear Regression | 27.50 |
+| FSS Significant Values Dataframe - Linear Regression | 31.76 |
+| FSS Significant Values Dataframe - Lasso Regression | 32.69 |
+| Analytical Dataframe - SVM | 32.14 |
+
+
+# Conclusion
+
+This report shows that there exists a statistically significant negative relationship between the number of DUIs and the Tree Equity Score of a census block in the urban areas analyzed. Furthermore, it shows that the tree equity score can be a valuable predictor for modeling crime. However, it is essential to emphasize that correlation does not imply causation, and the factors that relate these two variables to each other need further investigation. For example, it may be that investing in pedestrian-friendly infrastructure results in both less driving (and fewer DUIs) and also in more tree canopy. Similarly, it is possible that there is a relationship between the amount of policing a census block is subject to and how likely it is to have adequate tree canopy for its residents due to other socioeconomic factors. More profound questions like these are worth exploring. Future research should add non-linear modeling methods and explore additional socioeconomic, crime, and green space variables to investigate further how well this report's results generalize to other representations of the phenomena explored.
+
