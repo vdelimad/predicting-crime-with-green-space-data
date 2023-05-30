@@ -1,6 +1,8 @@
+.DS_Store
 challenge-docs/
 literature/
 submission/
+data/crime_open_database_filtered.csv
 
 
 # Byte-compiled / optimized / DLL files
