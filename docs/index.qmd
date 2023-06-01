@@ -36,7 +36,7 @@ title-block-banner: '#0F172A'
 
 Can the Tree Equity Score (TES), a measure of a city's tree canopy cover,  predict the number of Driving Under the Influence (DUI) offenses of a census block? Although green space data and crime are widely studied subjects, the relationship between these factors can be deeper than initially expected. In this paper, we use the Crime Open Database (CODE) to analyze the relationship between the number of DUIs and the variables available in the TES dataset set for more than 7,500 census blocks in 18 US cities (data sources from Green Space Challenge [@green_space_challenge_crime_2023] [@green_space_challenge_tree_2023]). Results show a statistically significant negative relationship between these two factors and that how well a city delivers equitable tree canopy cover to its residents can be symptomatic of other socioeconomic dimensions.
 
-![Heatmap of the Tree Equity Score for the census blocks in the City of New York generated using @city_of_new_york_2020_2022 and @green_space_challenge_tree_2023](../images/ny_tree_equity_score.png){height="300px" #fig-heatmap}
+![Heatmap of the Tree Equity Score for the census blocks in the City of New York generated using @city_of_new_york_2020_2022 and @green_space_challenge_tree_2023](../images/ny_tree_equity_score.png){width="100%" #fig-heatmap}
 
 
 # Related Work
