@@ -1,27 +1,34 @@
 
 ---
-title: "Predicting Crime with Green Space Data: Insights from the Tree Equity Dataset"
+title: Predicting Crime with Green Space Data
+subtitle: Insights from the Tree Equity Dataset <br> (Mini Project)
 author:
   - name: Victor De Lima
     affiliations:
       - name: Georgetown University
 date: 2023-03-03
 format:
-    html:
-      theme: journal
-      toc: true
-      embed-resources: true
-      code-copy: true
-      code-line-numbers: true
-      number-sections: true
-      highlight-style: github
-
+  html:
+    theme:
+      - lumen
+      - custom.scss
+    toc: true
+    embed-resources: true
+    code-copy: true
+    number-sections: true
+    code-line-numbers: true
+    code-fold: true
+    highlight-style: github
 bibliography: references.bib
+csl: council-of-science-editors-brackets.csl
+title-block-banner: '#0F172A'
 
 ---
 
 ::: {.callout-note appearance="simple"}
-All code used in this report is publicly available on [GitHub](https://github.com/vdelimad/predicting-crime-with-green-space-data).
+* All code used in this report is publicly available on [GitHub](https://github.com/vdelimad/tsb-with-reinforcement-learning).
+* To explore more of my work, please visit my [website](https://victordelima.com/).
+
 ::: 
 
 
